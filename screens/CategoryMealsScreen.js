@@ -1,7 +1,6 @@
 // italian, japanies
 import React from 'react';
-import { View, Text, StyleSheet, Button, Platform } from 'react-native';
-import colors from '../constants/colors';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
 
 const CategoryMealsScreen = props => {
@@ -28,10 +27,6 @@ CategoryMealsScreen.navigationOptions = navigationData => {
 
     return {
         headerTitle: selectedCategory.title,
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? colors.primaryColor: ''
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white': colors.primaryColor
     };
     
 }
