@@ -1,11 +1,14 @@
 // italian, japanies
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
-const MealDetailScreen = () => {
+const MealDetailScreen = props => {
     return (
         <View style={styles.screen}>
             <Text>The Meal Detail Screen!</Text>
+            <Button title="Go to First Screen" onPress={() => {
+                props.navigation.popToTop();
+            }}/>
         </View>
     );
 }
