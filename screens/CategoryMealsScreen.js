@@ -1,20 +1,21 @@
 // italian, japanies
 import React from 'react';
 import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
+import MealItem from '../components/MealItem';
 import { CATEGORIES, MEALS } from '../data/dummy-data';
 
 const CategoryMealsScreen = props => {
 
     const renderMealItem = itemData => {
-        return (
-            <View>
-                <Text>
-                    {itemData.item.title}
-                </Text>
-            </View>
-        )
+        return <MealItem
+            title={itemData.item.title}
+            image={itemData.item.imageUrl}
+            duration={itemData.item.duration}
+            complexity={itemData.item.complexity}
+            affordability={itemData.item.affordability}
+            onSelectMeal={() => { }} />
     }
-    
+
     const catId = props.navigation.getParam('categoryId')
     // const selectedCategory = CATEGORIES.find(obj => obj.id === catId)
 
@@ -24,10 +25,11 @@ const CategoryMealsScreen = props => {
 
     return (
         <View style={styles.screen}>
-            <FlatList 
+            <FlatList
                 keyExtractor={(item, index) => item.id}
-                data={displayedMeals} 
+                data={displayedMeals}
                 renderItem={renderMealItem}
+                style={{ width: '100%' }}
             />
         </View>
     );
