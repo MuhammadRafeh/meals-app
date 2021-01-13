@@ -1,21 +1,34 @@
 // italian, japanies
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { CATEGORIES } from '../data/dummy-data';
+import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
+import { CATEGORIES, MEALS } from '../data/dummy-data';
 
 const CategoryMealsScreen = props => {
 
-    const catId = props.navigation.getParam('categoryId')
-    const selectedCategory = CATEGORIES.find(obj => obj.id === catId)
+    const renderMealItem = itemData => {
+        return (
+            <View>
+                <Text>
+                    {itemData.item.title}
+                </Text>
+            </View>
+        )
+    }
     
+    const catId = props.navigation.getParam('categoryId')
+    // const selectedCategory = CATEGORIES.find(obj => obj.id === catId)
+
+    const displayedMeals = MEALS.filter(
+        meal => meal.categoryIds.indexOf(catId) >= 0
+    )
+
     return (
         <View style={styles.screen}>
-            <Text>The Category Meal Screen!</Text>
-            <Text>{selectedCategory.title}</Text>
-            <Button title="Go to Meal Details Screen" onPress={() => {
-                props.navigation.navigate('MealDetail')
-                // props.navigation.replace('MealDetail')
-            }}/>
+            <FlatList 
+                keyExtractor={(item, index) => item.id}
+                data={displayedMeals} 
+                renderItem={renderMealItem}
+            />
         </View>
     );
 }
@@ -28,7 +41,7 @@ CategoryMealsScreen.navigationOptions = navigationData => {
     return {
         headerTitle: selectedCategory.title,
     };
-    
+
 }
 
 export default CategoryMealsScreen;
