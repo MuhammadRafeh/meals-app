@@ -1,7 +1,9 @@
 // italian, japanies
 import React from "react";
 import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity, Platform } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CategoryGridTile from "../components/CategoryGridTile";
+import HeaderButton from "../components/HeaderButton";
 import colors from "../constants/colors";
 import { CATEGORIES } from "../data/dummy-data";
 
@@ -27,8 +29,17 @@ const CategoriesScreen = (props) => {
     );
 };
 
-CategoriesScreen.navigationOptions = {
-    headerTitle: 'Meal Categories'
+CategoriesScreen.navigationOptions = navData => {
+    return {
+        headerTitle: 'Meal Categories',
+        headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+                title="Menu"
+                iconName="ios-menu"
+                onPress={() => { navData.navigation.toggleDrawer() }}
+            />
+        </HeaderButtons>
+    }
 }
 
 export default CategoriesScreen;
