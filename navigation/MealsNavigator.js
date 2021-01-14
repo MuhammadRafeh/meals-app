@@ -9,6 +9,8 @@ import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import { Ionicons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+
 
 const MealsNavigator = createStackNavigator({
     Categories: {
@@ -31,12 +33,13 @@ const MealsNavigator = createStackNavigator({
     }
 })
 
-const MealsFavTabNavigator = createBottomTabNavigator({
+const tabScreenConfig = {
     Meals: {
         screen: MealsNavigator, navigationOptions: {
             tabBarIcon: (tabInfo) => {
                 return <Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
-            }
+            },
+            tabBarColor: colors.primaryColor
         }
     },
     Favorites: {
@@ -44,13 +47,26 @@ const MealsFavTabNavigator = createBottomTabNavigator({
             // tabBarLabel: 'Favorites!',
             tabBarIcon: (tabInfo) => {
                 return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />
-            }
+            },
+            tabBarColor: colors.accentColor
         }
     }
-}, {
-    tabBarOptions: {
-        activeTintColor: colors.accentColor
-    }
-})
+}
+
+const MealsFavTabNavigator =
+    Platform.OS === 'android'
+        ? createMaterialBottomTabNavigator(tabScreenConfig, {
+            activeColor: 'white',
+            shifting: true,
+            // shifting: false,                           //       --------|
+            // barStyle: {                                //               |
+            //     backgroundColor: colors.primaryColor   //               |
+            // }                                          //       --------|
+        })
+        : createBottomTabNavigator(tabScreenConfig, {
+            tabBarOptions: {
+                activeTintColor: colors.accentColor
+            }
+        })
 
 export default createAppContainer(MealsFavTabNavigator);
