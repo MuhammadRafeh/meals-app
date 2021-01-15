@@ -1,11 +1,11 @@
 // italian, japanies
 import React from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
-import { MEALS } from "../data/dummy-data";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 import { ScrollView } from "react-native-gesture-handler";
 import DefaultText from "../components/DefaultText";
+import { useSelector } from "react-redux";
 
 const ListItem = (props) => {
     return (
@@ -17,6 +17,8 @@ const ListItem = (props) => {
 
 const MealDetailScreen = (props) => {
     const mealId = props.navigation.getParam("mealId");
+
+    const MEALS  = useSelector(state => state.meals.meals)
 
     const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 

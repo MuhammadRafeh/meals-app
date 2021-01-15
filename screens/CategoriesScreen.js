@@ -1,6 +1,5 @@
-// italian, japanies
 import React from "react";
-import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity, Platform } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CategoryGridTile from "../components/CategoryGridTile";
 import HeaderButton from "../components/HeaderButton";
