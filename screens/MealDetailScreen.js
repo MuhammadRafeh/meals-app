@@ -1,11 +1,12 @@
 // italian, japanies
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 import { ScrollView } from "react-native-gesture-handler";
 import DefaultText from "../components/DefaultText";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../redux/actions";
 
 const ListItem = (props) => {
     return (
@@ -22,9 +23,15 @@ const MealDetailScreen = (props) => {
 
     const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-    // useEffect(() => {
-    //     props.navigation.setParams({ mealTitle: selectedMeal.title })
-    // }, [selectedMeal])
+    const dispatch = useDispatch();
+
+    const toggleFavoriteHandler = useCallback(() => { //we use useCallback to avoid build functions again & again
+        dispatch(toggleFavorite(mealId));             //which will cause infinite loop
+    }, [mealId])
+
+    useEffect(() => {
+        props.navigation.setParams({ toggleFav: toggleFavoriteHandler })
+    }, [toggleFavoriteHandler])
 
     return (
         <ScrollView>
@@ -47,9 +54,11 @@ const MealDetailScreen = (props) => {
 };
 
 MealDetailScreen.navigationOptions = (navigationData) => {
-    const mealId = navigationData.navigation.getParam("mealId");
+    // const mealId = navigationData.navigation.getParam("mealId");
     const title = navigationData.navigation.getParam('title')
 
+    const fvrtHandler = navigationData.navigation.getParam('toggleFav');
+    
     return {
         headerTitle: title,
         headerRight: () => (
@@ -57,9 +66,7 @@ MealDetailScreen.navigationOptions = (navigationData) => {
                 <Item
                     title="Favorite"
                     iconName="ios-star"
-                    onPress={() => {
-                        console.log("Mark as Favrt!");
-                    }}
+                    onPress={fvrtHandler}
                 />
             </HeaderButtons>
         ),
