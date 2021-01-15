@@ -1,5 +1,5 @@
 // italian, japanies
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
@@ -18,9 +18,13 @@ const ListItem = (props) => {
 const MealDetailScreen = (props) => {
     const mealId = props.navigation.getParam("mealId");
 
-    const MEALS  = useSelector(state => state.meals.meals)
+    const MEALS = useSelector(state => state.meals.meals)
 
     const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+    // useEffect(() => {
+    //     props.navigation.setParams({ mealTitle: selectedMeal.title })
+    // }, [selectedMeal])
 
     return (
         <ScrollView>
@@ -44,10 +48,10 @@ const MealDetailScreen = (props) => {
 
 MealDetailScreen.navigationOptions = (navigationData) => {
     const mealId = navigationData.navigation.getParam("mealId");
-    const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+    const title = navigationData.navigation.getParam('title')
 
     return {
-        headerTitle: selectedMeal.title,
+        headerTitle: title,
         headerRight: () => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item
