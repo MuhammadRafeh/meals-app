@@ -37,7 +37,6 @@ const MealDetailScreen = (props) => {
 
     useEffect(() => {
         props.navigation.setParams({isFav: isFav})
-        console.log('runasdasdasd----------------------------------------------------------------------')
     }, [isFav])
 
     return (
