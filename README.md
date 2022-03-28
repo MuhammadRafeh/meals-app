@@ -1,4 +1,4 @@
-# meals-app
+# Meals App
 React Native based meals app where user manages meals like filtering, mark items as favorite and so much.
 
 ## Preview
